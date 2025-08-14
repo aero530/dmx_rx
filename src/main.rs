@@ -18,7 +18,7 @@ use embassy_stm32::i2c::{Address, OwnAddresses};
 
 use embassy_stm32::usart::{Config as UsartConfig, DataBits, StopBits, Uart};
 use embassy_stm32::spi::{Config as SpiConfig, Mode as SpiMode, Spi, Phase, Polarity};
-use embassy_stm32::{bind_interrupts, i2c, peripherals, usart};
+use embassy_stm32::{bind_interrupts, i2c, peripherals, usart, Config};
 
 mod event_router;
 use event_router::{event_router, Router};
@@ -69,7 +69,32 @@ enum DeviceMode {
 
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {
-    let p = embassy_stm32::init(Default::default());
+    
+    let mut config = Config::default();
+    {
+        use embassy_stm32::rcc::*;
+        config.rcc.hsi = Some(Hsi {
+            sys_div: HsiSysDiv::DIV1,
+        });
+        config.rcc.pll = Some(Pll {
+            source: PllSource::HSI,
+            prediv: PllPreDiv::DIV1,
+            mul: PllMul::MUL16,
+            divp: None,
+            divq: Some(PllQDiv::DIV2), // 16 / 1 * 16 / 2 = 128 Mhz
+            divr: Some(PllRDiv::DIV4), // 16 / 1 * 16 / 4 = 64 Mhz
+        });
+        config.rcc.sys = Sysclk::PLL1_R;
+
+        // configure TIM1 mux to select PLLQ as clock source
+        // https://www.st.com/resource/en/reference_manual/rm0444-stm32g0x1-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
+        // RM0444 page 210
+        // RCC - Peripherals Independent Clock Control Register - bit 22 -> 1
+        config.rcc.mux.tim1sel = embassy_stm32::rcc::mux::Tim1sel::PLL1_Q;
+    }
+    // let p = embassy_stm32::init(Default::default());
+    let p = embassy_stm32::init(config);
+
 
     let mut led = Output::new(p.PC6, Level::High, Speed::Medium);
     led.set_high();
@@ -156,7 +181,7 @@ async fn main(spawner: Spawner) {
     let mut usart_config = UsartConfig::default();
     
     usart_config.baudrate = 250000;
-    usart_config.data_bits = DataBits::DataBits8; // set to 9 data bits but we will ignore the start bit
+    usart_config.data_bits = DataBits::DataBits9; // set to 9 data bits but we will ignore the start bit
     usart_config.stop_bits = StopBits::STOP2; //StopBits::STOP2;
     usart_config.parity = Parity::ParityNone;
     // usart_config.assume_noise_free = true;
