@@ -11,9 +11,9 @@ use crate::event_router::RouterEvent;
 
 /// Monitor dmx_break_pin interrupt
 #[embassy_executor::task]
-//pub async fn dmx_task(mut usart: Uart<'static, embassy_stm32::mode::Async>, mut dmx_break_pin: ExtiInput<'static>, tx: RouterChannelTx) {
+pub async fn dmx_task(mut usart: Uart<'static, embassy_stm32::mode::Async>, mut dmx_break_pin: ExtiInput<'static>, tx: RouterChannelTx) {
 // pub async fn dmx_task(mut usart: Uart<'static, embassy_stm32::mode::Blocking>, mut dmx_break_pin: ExtiInput<'static>, tx: RouterChannelTx) {
-pub async fn dmx_task(mut usart: BufferedUart<'static>, mut dmx_break_pin: ExtiInput<'static>, tx: RouterChannelTx) {
+// pub async fn dmx_task(mut usart: BufferedUart<'static>, mut dmx_break_pin: ExtiInput<'static>, tx: RouterChannelTx) {
     const MAB_DELAY: u64 = 8;
     const BREAK_DELAY: u64 = 88;
     const BREAK_TIMEOUT: u64 = 1000000;
@@ -48,8 +48,8 @@ pub async fn dmx_task(mut usart: BufferedUart<'static>, mut dmx_break_pin: ExtiI
             continue
         }
 
-        // match  usart.read(&mut dmx_buffer).await {
-        match usart.read_exact(&mut dmx_buffer[..]).await {
+        match  usart.read(&mut dmx_buffer).await {
+        // match usart.read_exact(&mut dmx_buffer[..]).await {
             Ok(()) => {
                 if dmx_buffer[0] == 0x00 {
                     info!("DMX sending packet to router");
