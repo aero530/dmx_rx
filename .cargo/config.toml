@@ -12,7 +12,7 @@ runner = [
 
 [build]
 # target = "thumbv7em-none-eabi"
-target = "thumbv7em-none-eabihf"
+target = "thumbv6m-none-eabi"
 
 # trace, debug, info, warn, error
 [env]

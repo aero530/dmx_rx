@@ -79,6 +79,7 @@ pub async fn i2c_task(mut dev: i2c::I2c<'static, Async, i2c::MultiMaster>, rx: I
 // Check to see if the RX channel has a message (new DMX data) from the router.
 // If there is new data then save that data to local dmx_data
 fn get_dmx_update(rx: I2cChannelRx, dmx_data: &mut [u8;513] ) {
+    info!("I2C pull dmx data");
     if let Ok(new_message) = rx.try_receive() {
         match new_message {
             // update our version of DMX data from the router

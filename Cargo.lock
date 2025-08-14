@@ -219,8 +219,11 @@ dependencies = [
  "embassy-stm32",
  "embassy-sync",
  "embassy-time",
+ "embedded-hal 1.0.0",
  "embedded-hal-async",
+ "embedded-io-async",
  "format_no_std",
+ "heapless",
  "panic-probe",
 ]
 
@@ -236,7 +239,7 @@ dependencies = [
 [[package]]
 name = "embassy-embedded-hal"
 version = "0.4.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "defmt 1.0.1",
  "embassy-futures",
@@ -254,7 +257,7 @@ dependencies = [
 [[package]]
 name = "embassy-executor"
 version = "0.8.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "cortex-m",
  "critical-section",
@@ -266,7 +269,7 @@ dependencies = [
 [[package]]
 name = "embassy-executor-macros"
 version = "0.7.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -277,12 +280,12 @@ dependencies = [
 [[package]]
 name = "embassy-futures"
 version = "0.1.1"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 
 [[package]]
 name = "embassy-hal-internal"
 version = "0.3.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "cortex-m",
  "critical-section",
@@ -293,15 +296,15 @@ dependencies = [
 [[package]]
 name = "embassy-net-driver"
 version = "0.2.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "defmt 1.0.1",
 ]
 
 [[package]]
 name = "embassy-stm32"
-version = "0.2.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+version = "0.3.0"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "aligned",
  "bit_field",
@@ -348,8 +351,8 @@ dependencies = [
 
 [[package]]
 name = "embassy-sync"
-version = "0.7.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+version = "0.7.1"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "cfg-if",
  "critical-section",
@@ -363,7 +366,7 @@ dependencies = [
 [[package]]
 name = "embassy-time"
 version = "0.4.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "cfg-if",
  "critical-section",
@@ -379,7 +382,7 @@ dependencies = [
 [[package]]
 name = "embassy-time-driver"
 version = "0.2.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "document-features",
 ]
@@ -387,7 +390,7 @@ dependencies = [
 [[package]]
 name = "embassy-time-queue-utils"
 version = "0.2.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "embassy-executor",
  "heapless",
@@ -396,7 +399,7 @@ dependencies = [
 [[package]]
 name = "embassy-usb-driver"
 version = "0.2.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "defmt 1.0.1",
  "embedded-io-async",
@@ -405,7 +408,7 @@ dependencies = [
 [[package]]
 name = "embassy-usb-synopsys-otg"
 version = "0.3.0"
-source = "git+https://github.com/embassy-rs/embassy?rev=7672229ffe00189fd2258020f933fab6146889cb#7672229ffe00189fd2258020f933fab6146889cb"
+source = "git+https://github.com/embassy-rs/embassy?rev=113fece2aa2ce322a4b02302ffa32fcff217f6ea#113fece2aa2ce322a4b02302ffa32fcff217f6ea"
 dependencies = [
  "critical-section",
  "defmt 1.0.1",
@@ -716,7 +719,8 @@ dependencies = [
 [[package]]
 name = "stm32-metapac"
 version = "17.0.0"
-source = "git+https://github.com/embassy-rs/stm32-data-generated?tag=stm32-data-9941f338734a2e6c1652267f64b13f7b35d8c9db#d40bc4d4e8710f9be8a7fd0d793cbd3132b932fd"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5b44329ff285800f88ccc1666218808c6ed0e6dc570383b5f661caadb8101133"
 dependencies = [
  "cortex-m",
  "cortex-m-rt",

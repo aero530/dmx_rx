@@ -15,17 +15,21 @@ cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section-sing
 cortex-m-rt = "0.7.0"
 defmt = "1.0.1"
 defmt-rtt = "1.0.0"
+embedded-hal = "1.0.0"
 embedded-hal-async = "1.0.0"
+panic-probe = { version = "1.0.0", features = ["print-defmt"] }
+heapless = { version = "0.8", default-features = false }
+# portable-atomic = { version = "1.5", features = ["unsafe-assume-single-core"] }
 
 # Change stm32g031k8 to your chip name, if necessary.
-embassy-stm32 = { version = "0.2.0", features = [ "defmt", "stm32g031k8", "unstable-pac", "memory-x", "time-driver-tim2", "exti"]  }
+embassy-stm32 = { version = "0.3.0", features = [ "defmt", "stm32g031k8", "unstable-pac", "memory-x", "time-driver-any", "exti"]  }
 embassy-executor = { version = "^0.8.0", features = ["arch-cortex-m", "executor-thread", "executor-interrupt", "defmt"] }
-embassy-time = { version = "0.4.0", features = ["defmt", "defmt-timestamp-uptime", "tick-hz-100_000_000"] }
+embassy-time = { version = "0.4.0", features = ["defmt", "defmt-timestamp-uptime", "tick-hz-10_000_000"] }
 embassy-futures = { version = "0.1.0" }
-embassy-sync = { version = "0.7.0", features = ["defmt"] } 
+embassy-sync = { version = "0.7.1", features = ["defmt"] } 
 embassy-embedded-hal = "0.4.0"
 
-panic-probe = { version = "1.0.0", features = ["print-defmt"] }
+embedded-io-async = { version = "0.6.1" }
 
 format_no_std = "1.2.0"
 
@@ -33,12 +37,12 @@ format_no_std = "1.2.0"
 debug = 2
 
 [patch.crates-io]
-embassy-stm32 = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
-embassy-executor = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
-embassy-time = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
-embassy-futures = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
-embassy-sync = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
-embassy-embedded-hal = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
+embassy-stm32 = {git="https://github.com/embassy-rs/embassy", rev="113fece2aa2ce322a4b02302ffa32fcff217f6ea"}
+embassy-executor = {git="https://github.com/embassy-rs/embassy", rev="113fece2aa2ce322a4b02302ffa32fcff217f6ea"}
+embassy-time = {git="https://github.com/embassy-rs/embassy", rev="113fece2aa2ce322a4b02302ffa32fcff217f6ea"}
+embassy-futures = {git="https://github.com/embassy-rs/embassy", rev="113fece2aa2ce322a4b02302ffa32fcff217f6ea"}
+embassy-sync = {git="https://github.com/embassy-rs/embassy", rev="113fece2aa2ce322a4b02302ffa32fcff217f6ea"}
+embassy-embedded-hal = {git="https://github.com/embassy-rs/embassy", rev="113fece2aa2ce322a4b02302ffa32fcff217f6ea"}
 
 
 # Max task-arena-size for F746ZG = 262144

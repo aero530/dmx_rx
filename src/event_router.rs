@@ -1,5 +1,5 @@
 //! Event router to send commands between tasks
-use defmt::{error, Format};
+use defmt::{error, info, Format};
 use embassy_stm32::gpio::Output;
 
 use crate::{channels::*, i2c_device::I2cEvent, spi_device::SpiEvent, DeviceMode};
@@ -57,7 +57,7 @@ impl Router {
     pub async fn process_event(&mut self, event: RouterEvent) {
         match event {
             RouterEvent::DmxPacket(dmx_data) => {
-                // info!("Router got DMX data");
+                info!("Router got DMX data");
                 // self.data.dmx = input;
 
                 match self.device_mode {
@@ -65,13 +65,19 @@ impl Router {
                         if self.channel_i2c.is_full() {
                             self.channel_i2c.clear(); // clear any existing message on the channel
                         }
-                        self.channel_i2c.try_send(I2cEvent::Write(dmx_data)).unwrap_or_else(|e| error!("Error routing DMX data to I2C {}",e));
+                        match self.channel_i2c.try_send(I2cEvent::Write(dmx_data)) {
+                            Ok(()) => {},
+                            Err(e) => error!("Error routing DMX data to I2C {}",e)
+                        }
                     },
                     DeviceMode::Spi => {
                         if self.channel_spi.is_full() {
                             self.channel_spi.clear(); // clear any existing message on the channel
                         }
-                        self.channel_spi.try_send(SpiEvent::Write(dmx_data)).unwrap_or_else(|e| error!("Error routing DMX data to SPI {}",e));
+                        match self.channel_spi.try_send(SpiEvent::Write(dmx_data)) {
+                            Ok(()) => {},
+                            Err(e) => error!("Error routing DMX data to SPI {}",e)
+                        }
                     },
                 }
             }
