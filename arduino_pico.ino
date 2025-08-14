@@ -40,8 +40,6 @@ void setup() {
 }
 
 void loop() {
-    delay(30);
-
     if(millis() > 100+dmxInput.latest_packet_timestamp()) {
         Serial.println("no data!");
         return;
@@ -49,17 +47,19 @@ void loop() {
 
     if (!newDataReady) { // Only fill if Core 1 has processed previous data
         for (int i = 0; i < BUFFER_SIZE; i++) {
-            sharedData[i] = i % 256; 
+            sharedData[i] = buffer[i]; 
         }
-        Serial.println("Core 0: Filled data buffer."); 
+        // Serial.println("Core 0: Filled data buffer."); 
         newDataReady = true; // Signal new data is ready for Core 1
         rp2040.fifo.push(1); // Push a dummy value to FIFO to wake up Core 1
     }
 
     // Blink the LED to indicate that a packet was received
+    // The blink is very fast so it just looks like a dim LED
     digitalWrite(LED_BUILTIN, HIGH);
     delay(10);
     digitalWrite(LED_BUILTIN, LOW);
+    delay(10);
 }
 
 
@@ -77,7 +77,7 @@ void setup1() {
 void loop1() {
     if (rp2040.fifo.available()) { // Check if FIFO has data (signal from Core 0)
         rp2040.fifo.pop(); // Pop the dummy value
-        Serial.println("Core 1: Received signal from Core 0."); 
+        // Serial.println("Core 1: Received signal from Core 0."); 
 
         // Process the data in the shared buffer
         for (int i = 0; i < BUFFER_SIZE; i++) {
@@ -85,11 +85,11 @@ void loop1() {
         }
         
         newDataReady = false; // Reset the flag, allowing Core 0 to fill again
-        Serial.println("Core 1: Data transferred."); 
+        // Serial.println("Core 1: Data transferred."); 
     }
 
     if (i2cDataRequest == true) {
-        Serial.println("I2C Data request");
+        // Serial.println("I2C Data request");
         Wire.write(core1Data, BUFFER_SIZE);
         i2cDataRequest = false;
     }
