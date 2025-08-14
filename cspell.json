@@ -1,0 +1,18 @@
+{
+    "words": [
+        "artnet",
+        "atsamd",
+        "defmt",
+        "ehal",
+        "GCLK",
+        "kosc",
+        "NVIC",
+        "NVMCTRL",
+        "rtic",
+        "sdmmc",
+        "SERCOM",
+        "SYSCTRL",
+        "uart",
+        "xiao"
+    ]
+}

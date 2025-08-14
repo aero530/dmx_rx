@@ -1,0 +1,48 @@
+[package]
+name = "dmx_rx"
+version = "0.1.0"
+edition = "2024"
+resolver = "3"
+
+[[bin]]
+name = "dmx_rx"
+test = false
+bench = false
+
+[dependencies]
+
+cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section-single-core"] }
+cortex-m-rt = "0.7.0"
+defmt = "1.0.1"
+defmt-rtt = "1.0.0"
+embedded-hal-async = "1.0.0"
+
+# Change stm32g031k8 to your chip name, if necessary.
+embassy-stm32 = { version = "0.2.0", features = [ "defmt", "stm32g031k8", "unstable-pac", "memory-x", "time-driver-tim2", "exti"]  }
+embassy-executor = { version = "^0.8.0", features = ["arch-cortex-m", "executor-thread", "executor-interrupt", "defmt"] }
+embassy-time = { version = "0.4.0", features = ["defmt", "defmt-timestamp-uptime", "tick-hz-100_000_000"] }
+embassy-futures = { version = "0.1.0" }
+embassy-sync = { version = "0.7.0", features = ["defmt"] } 
+embassy-embedded-hal = "0.4.0"
+
+panic-probe = { version = "1.0.0", features = ["print-defmt"] }
+
+format_no_std = "1.2.0"
+
+[profile.release]
+debug = 2
+
+[patch.crates-io]
+embassy-stm32 = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
+embassy-executor = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
+embassy-time = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
+embassy-futures = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
+embassy-sync = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
+embassy-embedded-hal = {git="https://github.com/embassy-rs/embassy", rev="7672229ffe00189fd2258020f933fab6146889cb"}
+
+
+# Max task-arena-size for F746ZG = 262144
+# was at 65536
+# 64, 128, 192, 256, 320, 384, 512, 640, 768, 1024, 1280, 1536, 2048, 2560, 3072, 4096 (default), 
+# 5120, 6144, 8192, 10240, 12288, 16384, 20480, 24576, 32768, 40960, 49152, 65536, 81920, 98304, 
+# 131072, 163840, 196608, 262144, 327680, 393216, 524288, 655360, 786432, 1048576, 
