@@ -4,16 +4,14 @@
 
 #[allow(unused_imports)]
 use defmt::{panic, *};
-use embassy_time::Instant;
-use crate::event_router::RouterEvent;
 
 use {defmt_rtt as _, panic_probe as _};
 use embassy_executor::Spawner;
-use embassy_stm32::{exti::ExtiInput, gpio::{Input, Level, Output, OutputOpenDrain, Speed}, usart::{BufferedUart, Parity}};
+use embassy_stm32::{exti::ExtiInput, gpio::{Input, Level, Output, OutputOpenDrain, Speed}, usart::Parity};
 use embassy_stm32::gpio::Pull;
 use embassy_stm32::time::Hertz;
 
-use embedded_io_async::{Read, Write};
+// use embedded_io_async::{Read, Write};
 use embassy_stm32::i2c::{Address, OwnAddresses};
 
 use embassy_stm32::usart::{Config as UsartConfig, DataBits, StopBits, Uart};

@@ -3,8 +3,8 @@ use defmt::{error, info};
 use embassy_stm32::exti::ExtiInput;
 use embassy_time::Instant;
 
-use embassy_stm32::usart::{BufferedUart, Uart};
-use embedded_io_async::{Read, Write};
+use embassy_stm32::usart::Uart;
+// use embedded_io_async::{Read, Write};
 
 use crate::channels::RouterChannelTx;
 use crate::event_router::RouterEvent;
